@@ -58,7 +58,6 @@ pub fn u128_bytes(u: &u128) -> [u8; 16] {
     ]
 }
 
-// Difficulty Conversion Utility
 pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[31] as u128) << 0xf * 8) |
     ((v[30] as u128) << 0xe * 8) |
@@ -76,4 +75,8 @@ pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[18] as u128) << 0x2 * 8) |
     ((v[17] as u128) << 0x1 * 8) |
     ((v[16] as u128) << 0x0 * 8)
+}
+
+pub fn check_difficulty(hash: &BlockHash, difficulty: u128) -> bool {
+    difficulty > difficulty_bytes_as_u128(hash)
 }
