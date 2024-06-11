@@ -9,5 +9,5 @@ fn main() {
     let h = block.hash();
     println!("{:?}", &h);
     block.hash = h; // assign hash to the block
-    block.mine()
+    // block.mine() // bardzo ciężka operacja
 }

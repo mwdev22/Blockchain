@@ -51,7 +51,7 @@ impl Hashable for Block {
         bytes.extend(&u64_bytes(&self.nonce));
         bytes.extend(self.payload.as_bytes());
         bytes.extend(&u128_bytes(&self.difficulty));
-    
+        
         bytes
     }
 }
