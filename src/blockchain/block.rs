@@ -1,7 +1,6 @@
 use std::fmt::{ self,  Debug, Formatter };
-use crate::{check_difficulty, u128_bytes, u32_bytes, u64_bytes, BlockHash};
+use crate::{check_difficulty, u128_bytes, u32_bytes, u64_bytes, BlockHash, Hashable};
 use hex::encode;
-use super::hashable::Hashable;
 
 
 pub struct Block {
@@ -15,13 +14,6 @@ pub struct Block {
 }
 
 
-
-impl Debug for Block {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "Block[{}]: {}. at: {}, with: {}", self.index,encode(&self.hash), self.timestamp, self.payload)
-    }
-}
-
 impl Block {
     pub fn new(
         index: u32,timestamp: u128,
@@ -33,14 +25,24 @@ impl Block {
         for nonce_attempt in 0..(u64::max_value()) {
             self.nonce = nonce_attempt;
             let hash = self.hash();
-            println!("attempt: {nonce_attempt}, hash: {:?}", hash);
+            // println!("attempt: {nonce_attempt}, hash: {:?}", hash);
             if check_difficulty(&hash, self.difficulty) {
                 self.hash = hash;
+                println!("attempt: {nonce_attempt}, hash: {:?}", self.hash);
                 return;
             }
         }
     }
 }
+
+
+impl Debug for Block {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "Block[{}]: {}. at: {}, with: {}", self.index,encode(&self.hash), self.timestamp, self.payload)
+    }
+}
+
+
 
 impl Hashable for Block {
     fn bytes(&self) -> Vec<u8> {
@@ -55,3 +57,4 @@ impl Hashable for Block {
         bytes
     }
 }
+

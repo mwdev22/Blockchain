@@ -1,7 +1,7 @@
 use crate::*;
 
 
-struct BlockChain {
+pub struct BlockChain {
     pub blocks: Vec<Block>,
 }
 
