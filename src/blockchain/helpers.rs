@@ -58,6 +58,7 @@ pub fn u128_bytes(u: &u128) -> [u8; 16] {
     ]
 }
 
+// convert bytes to uint for difficulty check
 pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[31] as u128) << 0xf * 8) |
     ((v[30] as u128) << 0xe * 8) |
@@ -77,6 +78,7 @@ pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[16] as u128) << 0x0 * 8)
 }
 
+// check if hash numerical value is lower than specified difficulty
 pub fn check_difficulty(hash: &BlockHash, difficulty: u128) -> bool {
     difficulty > difficulty_bytes_as_u128(hash)
 }
