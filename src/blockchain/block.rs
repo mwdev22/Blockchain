@@ -28,7 +28,8 @@ impl Block {
             // println!("attempt: {nonce_attempt}, hash: {:?}", hash);
             if check_difficulty(&hash, self.difficulty) {
                 self.hash = hash;
-                println!("attempt: {nonce_attempt}, hash: {:?}", self.hash);
+                println!("nonce: {nonce_attempt}, hash: {:?}", self.hash);
+                
                 return;
             }
         }
@@ -43,7 +44,7 @@ impl Debug for Block {
 }
 
 
-
+// generating bytes based on block data for hashing
 impl Hashable for Block {
     fn bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
@@ -52,8 +53,7 @@ impl Hashable for Block {
         bytes.extend(&self.prev_block_hash);
         bytes.extend(&u64_bytes(&self.nonce));
         bytes.extend(self.payload.as_bytes());
-        bytes.extend(&u128_bytes(&self.difficulty));
-        
+        bytes.extend(&u128_bytes(&self.difficulty));        
         bytes
     }
 }

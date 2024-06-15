@@ -24,4 +24,7 @@ fn main() {
         last_hash = block.hash.clone();
         blockchain.blocks.push(block);
     }
+
+    // TODO transactions logic
+
 }

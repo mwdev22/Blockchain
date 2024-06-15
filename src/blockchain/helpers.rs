@@ -1,6 +1,5 @@
 // Type Aliases
 pub type BlockHash = Vec<u8>;
-type Address = String;
 
 // Imports
 use std::time::{SystemTime, UNIX_EPOCH};
