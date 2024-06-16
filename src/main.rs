@@ -25,6 +25,8 @@ fn main() {
         blockchain.blocks.push(block);
     }
 
+    println!("verify: {}", blockchain.verify())
+
     // TODO transactions logic
 
 }
