@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 use crate::*;
 
+#[derive(Clone)]
 pub struct Transfer {
     pub to_addr: Address,
     pub value: u64,
@@ -23,10 +24,10 @@ pub struct Transaction {
 
 impl Transaction {
 
-    pub fn input_values(&self) -> u64 {
+    pub fn input_value(&self) -> u64 {
         Transaction::sum_values(&self.inputs)
     }
-    pub fn output_values(&self) -> u64 {
+    pub fn output_value(&self) -> u64 {
         Transaction::sum_values(&self.outputs)
     }
     pub fn input_hashes (&self) -> HashSet<BlockHash> {
