@@ -109,9 +109,11 @@ impl BlockChain {
                     .iter()
                     .flat_map(|block| &block.transactions)
                     .flat_map(|transaction| &transaction.outputs)
+                    // find provided hash in the blockchain
                     .find(|output| &output.hash() == hash)
                     .map_or(0, |output| output.value)
             })
+            // sum hashes
             .sum()
     }
     
