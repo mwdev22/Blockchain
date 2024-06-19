@@ -64,7 +64,8 @@ impl BlockChain {
     
                 // every input hash in unspent outputs?
                 // empty input hashes
-                if !(&input_hashes - &self.unspent_outputs).is_empty() {
+                if !(&input_hashes - &self.unspent_outputs).is_empty() || 
+                   !(&input_hashes & &block_spent).is_empty() {
                     return Err(BlockValidationError::InvalidInput);
                 }
     
@@ -95,8 +96,23 @@ impl BlockChain {
     
         // after passing all the validation tests, im adding block to the blockchain
         self.blocks.push(block);
+        // println!("{:?}", total_fee);
     
         Ok(())
+    }
+
+    pub fn total_unspent(&self) -> u64 {
+        self.unspent_outputs
+            .iter()
+            .map(|hash| {
+                self.blocks
+                    .iter()
+                    .flat_map(|block| &block.transactions)
+                    .flat_map(|transaction| &transaction.outputs)
+                    .find(|output| &output.hash() == hash)
+                    .map_or(0, |output| output.value)
+            })
+            .sum()
     }
     
 }

@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 crypto-hash = "0.3.4"
 hex = "0.4.3"
+rand = "0.8.5"
