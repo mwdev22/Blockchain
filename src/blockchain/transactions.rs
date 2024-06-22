@@ -3,14 +3,14 @@ use crate::*;
 
 #[derive(Clone)]
 pub struct Transfer {
-    pub to_addr: Address,
+    pub receiver: Wallet,
     pub value: u64,
 }
 
 impl Hashable for Transfer {
     fn bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
-        bytes.extend(self.to_addr.as_bytes());
+        bytes.extend(self.receiver.bytes());
         bytes.extend(&u64_bytes(&self.value));
 
         bytes

@@ -1,11 +1,9 @@
-// Type Aliases
-pub type BlockHash = Vec<u8>;
-pub type Address = String;
-
-// Imports
 use std::time::{SystemTime, UNIX_EPOCH};
 
-// Time Utilities
+
+pub type BlockHash = Vec<u8>;
+
+
 pub fn now() -> u128 {
     let duration = SystemTime::now()
         .duration_since(UNIX_EPOCH)
